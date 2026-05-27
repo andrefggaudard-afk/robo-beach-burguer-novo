@@ -1,6 +1,6 @@
 FROM node:18-slim
 
-# Instala todas as dependências necessárias para o Chrome
+# Instala todas as dependências necessárias
 RUN apt-get update && apt-get install -y \
     libnss3 \
     libatk-bridge2.0-0 \
@@ -31,7 +31,8 @@ RUN npx playwright install chromium
 
 COPY . .
 
-# Configura o Puppeteer para usar o Chrome do Playwright
+# Força o WhatsApp-Web.js a usar o Chrome do Playwright
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/root/.cache/ms-playwright/chromium-1223/chrome-linux/chrome
 
 CMD ["npm", "start"]
